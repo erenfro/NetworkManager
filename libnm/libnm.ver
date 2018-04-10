@@ -1373,3 +1373,8 @@ global:
 	nm_utils_get_timestamp_msec;
 	nm_vpn_service_plugin_shutdown;
 } libnm_1_10_0;
+
+libnm_1_14_0 {
+	nm_connection_multi_connect_get_type;
+	nm_setting_connection_get_multi_connect;
+} libnm_1_12_0;
