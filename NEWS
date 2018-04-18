@@ -4,6 +4,8 @@ Overview of changes since NetworkManager-1.12
 =============================================
 
 * Added support for IEEE 802.15.4 and 6LowPAN devices.
+* Support activating profile multiple times via connection.connect-multiple
+  setting.
 
 =============================================
 NetworkManager-1.11.90 (1.12-rc1)
