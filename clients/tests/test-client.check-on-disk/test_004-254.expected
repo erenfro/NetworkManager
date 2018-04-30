@@ -2,14 +2,14 @@ location: clients/tests/test-client.py:984:test_004()/254
 cmd: $NMCLI --mode tabular --terse --color yes -f ALL device show wlan0
 lang: pl_PL.UTF-8
 returncode: 0
-stdout: 1445 bytes
+stdout: 2207 bytes
 >>>
 GENERAL:wlan0:wifi:NMDeviceWifi:::virtual:::13\:E0\:74\:85\:7C\:D9:0:20 (unavailable):0 (No reason given):/sys/devices/virtual/wlan0::no:yes:yes:no:no::con-vpn-1:UUID-con-vpn-1-REPLACED-REPLACED-REP:/org/freedesktop/NetworkManager/ActiveConnection/2:unknown
 CAPABILITIES:no:unknown:no:no
 WIFI-PROPERTIES:yes:yes:yes:yes:yes:yes:yes:unknown:unknown
-[32mAP[1][0m:[32m [0m:[32mwlan0-ap-2[0m:[32mInfrastruktura[0m:[32m1[0m:[32m54 Mb/s[0m:[32m92[0m:[32m****[0m:[32mWPA1 WPA2[0m
-[32mAP[2][0m:[32m [0m:[32mwlan0-ap-1[0m:[32mInfrastruktura[0m:[32m1[0m:[32m54 Mb/s[0m:[32m81[0m:[32m****[0m:[32mWPA1 WPA2[0m
-[35mAP[3][0m:[35m [0m:[35mwlan0-ap-3[0m:[35mInfrastruktura[0m:[35m1[0m:[35m54 Mb/s[0m:[35m55[0m:[35m**  [0m:[35mWPA1 WPA2[0m
+AP[1]:[32mwlan0-ap-2[0m:[32m776C616E302D61702D32[0m:[32mC0\:E2\:BE\:E8\:EF\:B6[0m:[32mInfra[0m:[32m1[0m:[32m2412 MHz[0m:[32m54 Mbit/s[0m:[32m92[0m:[32m****[0m:[32mWPA1 WPA2[0m:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[32mwlan0[0m:[32mno[0m:[32m [0m:[32m/org/freedesktop/NetworkManager/AccessPoint/2[0m
+AP[2]:[32mwlan0-ap-1[0m:[32m776C616E302D61702D31[0m:[32m61\:95\:77\:AC\:1E\:4C[0m:[32mInfra[0m:[32m1[0m:[32m2412 MHz[0m:[32m54 Mbit/s[0m:[32m81[0m:[32m****[0m:[32mWPA1 WPA2[0m:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[32mwlan0[0m:[32mno[0m:[32m [0m:[32m/org/freedesktop/NetworkManager/AccessPoint/1[0m
+AP[3]:[35mwlan0-ap-3[0m:[35m776C616E302D61702D33[0m:[35m9B\:F6\:B7\:EC\:97\:76[0m:[35mInfra[0m:[35m1[0m:[35m2412 MHz[0m:[35m54 Mbit/s[0m:[35m55[0m:[35m**  [0m:[35mWPA1 WPA2[0m:[35mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[35mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m:[35mwlan0[0m:[35mno[0m:[35m [0m:[35m/org/freedesktop/NetworkManager/AccessPoint/3[0m
 IP4:192.168.228.18/32 | 192.168.209.179/25:192.168.41.120:::sear4.foo2.bar | sear4.fo.x.y | sear4.foo1.bar | sear4.foo4.bar | sear4.fo.o.bar:192.168.120.79
 DHCP4:dhcp-4-opt-0 = val-0 | dhcp-4-opt-2 = val-2 | dhcp-4-opt-4 = val-4 | dhcp-4-opt-7 = val-7
 IP6:::dst = 2001\:a\:\:dd5b\:aa7b\:b4a2\:e42/102, nh = \:\:, mt = 2504159086::sear6.foo2.bar | sear6.foo1.bar | sear6.fo.x.y | sear6.fo.o.bar | sear6.foo3.bar | sear6.foo4.bar

@@ -2,7 +2,7 @@ location: clients/tests/test-client.py:988:test_004()/59
 cmd: $NMCLI -f GENERAL,CAPABILITIES,WIFI-PROPERTIES,AP,WIRED-PROPERTIES,WIMAX-PROPERTIES,NSP,IP4,DHCP4,IP6,DHCP6,BOND,TEAM,BRIDGE,VLAN,BLUETOOTH,CONNECTIONS device show wlan0
 lang: C
 returncode: 0
-stdout: 4611 bytes
+stdout: 6156 bytes
 >>>
 GENERAL.DEVICE:                         wlan0
 GENERAL.TYPE:                           wifi
@@ -41,30 +41,54 @@ WIFI-PROPERTIES.AP:                     yes
 WIFI-PROPERTIES.ADHOC:                  yes
 WIFI-PROPERTIES.2GHZ:                   unknown
 WIFI-PROPERTIES.5GHZ:                   unknown
-AP[1].IN-USE:                            
 AP[1].SSID:                             wlan0-ap-2
+AP[1].SSID-HEX:                         776C616E302D61702D32
+AP[1].BSSID:                            C0:E2:BE:E8:EF:B6
 AP[1].MODE:                             Infra
 AP[1].CHAN:                             1
+AP[1].FREQ:                             2412 MHz
 AP[1].RATE:                             54 Mbit/s
 AP[1].SIGNAL:                           92
 AP[1].BARS:                             ****
 AP[1].SECURITY:                         WPA1 WPA2
-AP[2].IN-USE:                            
+AP[1].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].DEVICE:                           wlan0
+AP[1].ACTIVE:                           no
+AP[1].IN-USE:                            
+AP[1].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/2
 AP[2].SSID:                             wlan0-ap-1
+AP[2].SSID-HEX:                         776C616E302D61702D31
+AP[2].BSSID:                            61:95:77:AC:1E:4C
 AP[2].MODE:                             Infra
 AP[2].CHAN:                             1
+AP[2].FREQ:                             2412 MHz
 AP[2].RATE:                             54 Mbit/s
 AP[2].SIGNAL:                           81
 AP[2].BARS:                             ****
 AP[2].SECURITY:                         WPA1 WPA2
-AP[3].IN-USE:                            
+AP[2].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[2].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[2].DEVICE:                           wlan0
+AP[2].ACTIVE:                           no
+AP[2].IN-USE:                            
+AP[2].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/1
 AP[3].SSID:                             wlan0-ap-3
+AP[3].SSID-HEX:                         776C616E302D61702D33
+AP[3].BSSID:                            9B:F6:B7:EC:97:76
 AP[3].MODE:                             Infra
 AP[3].CHAN:                             1
+AP[3].FREQ:                             2412 MHz
 AP[3].RATE:                             54 Mbit/s
 AP[3].SIGNAL:                           55
 AP[3].BARS:                             **  
 AP[3].SECURITY:                         WPA1 WPA2
+AP[3].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[3].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[3].DEVICE:                           wlan0
+AP[3].ACTIVE:                           no
+AP[3].IN-USE:                            
+AP[3].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/3
 IP4.ADDRESS[1]:                         192.168.228.18/32
 IP4.ADDRESS[2]:                         192.168.209.179/25
 IP4.GATEWAY:                            192.168.41.120

@@ -2,42 +2,40 @@ location: clients/tests/test-client.py:972:test_004()/261
 cmd: $NMCLI --mode multiline -f COMMON device wifi list
 lang: C
 returncode: 0
-stdout: 1478 bytes
+stdout: 1476 bytes
 >>>
-IN-USE:                                  
-SSID:                                   wlan1-ap-4
-MODE:                                   Infra
-CHAN:                                   1
-RATE:                                   54 Mbit/s
-SIGNAL:                                 48
-BARS:                                   **  
-SECURITY:                               WPA1 WPA2
-
-
-IN-USE:                                  
-SSID:                                   wlan0-ap-2
-MODE:                                   Infra
-CHAN:                                   1
-RATE:                                   54 Mbit/s
-SIGNAL:                                 92
-BARS:                                   ****
-SECURITY:                               WPA1 WPA2
-IN-USE:                                  
-SSID:                                   wlan0-ap-1
-MODE:                                   Infra
-CHAN:                                   1
-RATE:                                   54 Mbit/s
-SIGNAL:                                 81
-BARS:                                   ****
-SECURITY:                               WPA1 WPA2
-IN-USE:                                  
-SSID:                                   wlan0-ap-3
-MODE:                                   Infra
-CHAN:                                   1
-RATE:                                   54 Mbit/s
-SIGNAL:                                 55
-BARS:                                   **  
-SECURITY:                               WPA1 WPA2
+AP[1].IN-USE:                            
+AP[1].SSID:                             wlan1-ap-4
+AP[1].MODE:                             Infra
+AP[1].CHAN:                             1
+AP[1].RATE:                             54 Mbit/s
+AP[1].SIGNAL:                           48
+AP[1].BARS:                             **  
+AP[1].SECURITY:                         WPA1 WPA2
+AP[1].IN-USE:                            
+AP[1].SSID:                             wlan0-ap-2
+AP[1].MODE:                             Infra
+AP[1].CHAN:                             1
+AP[1].RATE:                             54 Mbit/s
+AP[1].SIGNAL:                           92
+AP[1].BARS:                             ****
+AP[1].SECURITY:                         WPA1 WPA2
+AP[2].IN-USE:                            
+AP[2].SSID:                             wlan0-ap-1
+AP[2].MODE:                             Infra
+AP[2].CHAN:                             1
+AP[2].RATE:                             54 Mbit/s
+AP[2].SIGNAL:                           81
+AP[2].BARS:                             ****
+AP[2].SECURITY:                         WPA1 WPA2
+AP[3].IN-USE:                            
+AP[3].SSID:                             wlan0-ap-3
+AP[3].MODE:                             Infra
+AP[3].CHAN:                             1
+AP[3].RATE:                             54 Mbit/s
+AP[3].SIGNAL:                           55
+AP[3].BARS:                             **  
+AP[3].SECURITY:                         WPA1 WPA2
 
 <<<
 stderr: 0 bytes

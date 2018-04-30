@@ -2,90 +2,81 @@ location: clients/tests/test-client.py:970:test_004()/295
 cmd: $NMCLI --mode multiline --pretty -f ALL device wifi list
 lang: C
 returncode: 0
-stdout: 4678 bytes
+stdout: 4280 bytes
 >>>
 ===============================================================================
                             Wi-Fi scan list (wlan1)
 ===============================================================================
-NAME:                                   AP[1]
-SSID:                                   wlan1-ap-4
-SSID-HEX:                               776C616E312D61702D34
-BSSID:                                  94:2B:E8:F6:D2:86
-MODE:                                   Infra
-CHAN:                                   1
-FREQ:                                   2412 MHz
-RATE:                                   54 Mbit/s
-SIGNAL:                                 48
-BARS:                                   **  
-SECURITY:                               WPA1 WPA2
-WPA-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-RSN-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-DEVICE:                                 wlan1
-ACTIVE:                                 no
-IN-USE:                                  
-DBUS-PATH:                              /org/freedesktop/NetworkManager/AccessPoint/4
+AP[1].SSID:                             wlan1-ap-4
+AP[1].SSID-HEX:                         776C616E312D61702D34
+AP[1].BSSID:                            94:2B:E8:F6:D2:86
+AP[1].MODE:                             Infra
+AP[1].CHAN:                             1
+AP[1].FREQ:                             2412 MHz
+AP[1].RATE:                             54 Mbit/s
+AP[1].SIGNAL:                           48
+AP[1].BARS:                             **  
+AP[1].SECURITY:                         WPA1 WPA2
+AP[1].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].DEVICE:                           wlan1
+AP[1].ACTIVE:                           no
+AP[1].IN-USE:                            
+AP[1].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/4
 -------------------------------------------------------------------------------
-
-===============================================================================
-                            Wi-Fi scan list (wlan1)
-===============================================================================
-
 ===============================================================================
                             Wi-Fi scan list (wlan0)
 ===============================================================================
-NAME:                                   AP[1]
-SSID:                                   wlan0-ap-2
-SSID-HEX:                               776C616E302D61702D32
-BSSID:                                  C0:E2:BE:E8:EF:B6
-MODE:                                   Infra
-CHAN:                                   1
-FREQ:                                   2412 MHz
-RATE:                                   54 Mbit/s
-SIGNAL:                                 92
-BARS:                                   ****
-SECURITY:                               WPA1 WPA2
-WPA-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-RSN-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-DEVICE:                                 wlan0
-ACTIVE:                                 no
-IN-USE:                                  
-DBUS-PATH:                              /org/freedesktop/NetworkManager/AccessPoint/2
+AP[1].SSID:                             wlan0-ap-2
+AP[1].SSID-HEX:                         776C616E302D61702D32
+AP[1].BSSID:                            C0:E2:BE:E8:EF:B6
+AP[1].MODE:                             Infra
+AP[1].CHAN:                             1
+AP[1].FREQ:                             2412 MHz
+AP[1].RATE:                             54 Mbit/s
+AP[1].SIGNAL:                           92
+AP[1].BARS:                             ****
+AP[1].SECURITY:                         WPA1 WPA2
+AP[1].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[1].DEVICE:                           wlan0
+AP[1].ACTIVE:                           no
+AP[1].IN-USE:                            
+AP[1].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/2
 -------------------------------------------------------------------------------
-NAME:                                   AP[2]
-SSID:                                   wlan0-ap-1
-SSID-HEX:                               776C616E302D61702D31
-BSSID:                                  61:95:77:AC:1E:4C
-MODE:                                   Infra
-CHAN:                                   1
-FREQ:                                   2412 MHz
-RATE:                                   54 Mbit/s
-SIGNAL:                                 81
-BARS:                                   ****
-SECURITY:                               WPA1 WPA2
-WPA-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-RSN-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-DEVICE:                                 wlan0
-ACTIVE:                                 no
-IN-USE:                                  
-DBUS-PATH:                              /org/freedesktop/NetworkManager/AccessPoint/1
+AP[2].SSID:                             wlan0-ap-1
+AP[2].SSID-HEX:                         776C616E302D61702D31
+AP[2].BSSID:                            61:95:77:AC:1E:4C
+AP[2].MODE:                             Infra
+AP[2].CHAN:                             1
+AP[2].FREQ:                             2412 MHz
+AP[2].RATE:                             54 Mbit/s
+AP[2].SIGNAL:                           81
+AP[2].BARS:                             ****
+AP[2].SECURITY:                         WPA1 WPA2
+AP[2].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[2].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[2].DEVICE:                           wlan0
+AP[2].ACTIVE:                           no
+AP[2].IN-USE:                            
+AP[2].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/1
 -------------------------------------------------------------------------------
-NAME:                                   AP[3]
-SSID:                                   wlan0-ap-3
-SSID-HEX:                               776C616E302D61702D33
-BSSID:                                  9B:F6:B7:EC:97:76
-MODE:                                   Infra
-CHAN:                                   1
-FREQ:                                   2412 MHz
-RATE:                                   54 Mbit/s
-SIGNAL:                                 55
-BARS:                                   **  
-SECURITY:                               WPA1 WPA2
-WPA-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-RSN-FLAGS:                              pair_tkip pair_ccmp group_tkip group_ccmp psk
-DEVICE:                                 wlan0
-ACTIVE:                                 no
-IN-USE:                                  
-DBUS-PATH:                              /org/freedesktop/NetworkManager/AccessPoint/3
+AP[3].SSID:                             wlan0-ap-3
+AP[3].SSID-HEX:                         776C616E302D61702D33
+AP[3].BSSID:                            9B:F6:B7:EC:97:76
+AP[3].MODE:                             Infra
+AP[3].CHAN:                             1
+AP[3].FREQ:                             2412 MHz
+AP[3].RATE:                             54 Mbit/s
+AP[3].SIGNAL:                           55
+AP[3].BARS:                             **  
+AP[3].SECURITY:                         WPA1 WPA2
+AP[3].WPA-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[3].RSN-FLAGS:                        pair_tkip pair_ccmp group_tkip group_ccmp psk
+AP[3].DEVICE:                           wlan0
+AP[3].ACTIVE:                           no
+AP[3].IN-USE:                            
+AP[3].DBUS-PATH:                        /org/freedesktop/NetworkManager/AccessPoint/3
 -------------------------------------------------------------------------------
 
 <<<

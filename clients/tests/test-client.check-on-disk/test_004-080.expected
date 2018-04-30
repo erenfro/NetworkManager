@@ -2,7 +2,7 @@ location: clients/tests/test-client.py:970:test_004()/80
 cmd: $NMCLI --pretty -f ALL device wifi list
 lang: pl_PL.UTF-8
 returncode: 0
-stdout: 3100 bytes
+stdout: 2668 bytes
 >>>
 ========================================
   Lista skanowania sieci Wi-Fi (wlan1)
@@ -10,13 +10,6 @@ stdout: 3100 bytes
 NAME   SSID        SSID-HEX              BSSID              MODE            CHAN  FREQ      RATE     SIGNAL  BARS  SECURITY   WPA-FLAGS                                      RSN-FLAGS                                      DEVICE  ACTIVE  IN-USE  DBUS-PATH                                     
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 AP[1]  wlan1-ap-4  776C616E312D61702D34  94:2B:E8:F6:D2:86  Infrastruktura  1     2412 MHz  54 Mb/s  48      **    WPA1 WPA2  pair_tkip pair_ccmp group_tkip group_ccmp psk  pair_tkip pair_ccmp group_tkip group_ccmp psk  wlan1   nie             /org/freedesktop/NetworkManager/AccessPoint/4 
-
-========================================
-  Lista skanowania sieci Wi-Fi (wlan1)
-========================================
-NAME  SSID  SSID-HEX  BSSID  MODE  CHAN  FREQ  RATE  SIGNAL  BARS  SECURITY  WPA-FLAGS  RSN-FLAGS  DEVICE  ACTIVE  IN-USE  DBUS-PATH 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ========================================
   Lista skanowania sieci Wi-Fi (wlan0)
 ========================================

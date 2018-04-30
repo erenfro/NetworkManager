@@ -2,7 +2,7 @@ location: clients/tests/test-client.py:984:test_004()/362
 cmd: $NMCLI --mode multiline --terse --color yes -f ALL device show wlan0
 lang: pl_PL.UTF-8
 returncode: 0
-stdout: 2721 bytes
+stdout: 3831 bytes
 >>>
 GENERAL.DEVICE:wlan0
 GENERAL.TYPE:wifi
@@ -41,30 +41,54 @@ WIFI-PROPERTIES.AP:yes
 WIFI-PROPERTIES.ADHOC:yes
 WIFI-PROPERTIES.2GHZ:unknown
 WIFI-PROPERTIES.5GHZ:unknown
-AP[1].IN-USE:[32m [0m
 AP[1].SSID:[32mwlan0-ap-2[0m
-AP[1].MODE:[32mInfrastruktura[0m
+AP[1].SSID-HEX:[32m776C616E302D61702D32[0m
+AP[1].BSSID:[32mC0:E2:BE:E8:EF:B6[0m
+AP[1].MODE:[32mInfra[0m
 AP[1].CHAN:[32m1[0m
-AP[1].RATE:[32m54 Mb/s[0m
+AP[1].FREQ:[32m2412 MHz[0m
+AP[1].RATE:[32m54 Mbit/s[0m
 AP[1].SIGNAL:[32m92[0m
 AP[1].BARS:[32m****[0m
 AP[1].SECURITY:[32mWPA1 WPA2[0m
-AP[2].IN-USE:[32m [0m
+AP[1].WPA-FLAGS:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[1].RSN-FLAGS:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[1].DEVICE:[32mwlan0[0m
+AP[1].ACTIVE:[32mno[0m
+AP[1].IN-USE:[32m [0m
+AP[1].DBUS-PATH:[32m/org/freedesktop/NetworkManager/AccessPoint/2[0m
 AP[2].SSID:[32mwlan0-ap-1[0m
-AP[2].MODE:[32mInfrastruktura[0m
+AP[2].SSID-HEX:[32m776C616E302D61702D31[0m
+AP[2].BSSID:[32m61:95:77:AC:1E:4C[0m
+AP[2].MODE:[32mInfra[0m
 AP[2].CHAN:[32m1[0m
-AP[2].RATE:[32m54 Mb/s[0m
+AP[2].FREQ:[32m2412 MHz[0m
+AP[2].RATE:[32m54 Mbit/s[0m
 AP[2].SIGNAL:[32m81[0m
 AP[2].BARS:[32m****[0m
 AP[2].SECURITY:[32mWPA1 WPA2[0m
-AP[3].IN-USE:[35m [0m
+AP[2].WPA-FLAGS:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[2].RSN-FLAGS:[32mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[2].DEVICE:[32mwlan0[0m
+AP[2].ACTIVE:[32mno[0m
+AP[2].IN-USE:[32m [0m
+AP[2].DBUS-PATH:[32m/org/freedesktop/NetworkManager/AccessPoint/1[0m
 AP[3].SSID:[35mwlan0-ap-3[0m
-AP[3].MODE:[35mInfrastruktura[0m
+AP[3].SSID-HEX:[35m776C616E302D61702D33[0m
+AP[3].BSSID:[35m9B:F6:B7:EC:97:76[0m
+AP[3].MODE:[35mInfra[0m
 AP[3].CHAN:[35m1[0m
-AP[3].RATE:[35m54 Mb/s[0m
+AP[3].FREQ:[35m2412 MHz[0m
+AP[3].RATE:[35m54 Mbit/s[0m
 AP[3].SIGNAL:[35m55[0m
 AP[3].BARS:[35m**  [0m
 AP[3].SECURITY:[35mWPA1 WPA2[0m
+AP[3].WPA-FLAGS:[35mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[3].RSN-FLAGS:[35mpair_tkip pair_ccmp group_tkip group_ccmp psk[0m
+AP[3].DEVICE:[35mwlan0[0m
+AP[3].ACTIVE:[35mno[0m
+AP[3].IN-USE:[35m [0m
+AP[3].DBUS-PATH:[35m/org/freedesktop/NetworkManager/AccessPoint/3[0m
 IP4.ADDRESS[1]:192.168.228.18/32
 IP4.ADDRESS[2]:192.168.209.179/25
 IP4.GATEWAY:192.168.41.120
