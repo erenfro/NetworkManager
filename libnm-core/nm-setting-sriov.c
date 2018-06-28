@@ -436,10 +436,11 @@ nm_sriov_vf_attribute_validate  (const char *name,
 	}
 
 	if (spec->type == G_VARIANT_TYPE_STRING) {
-		const char *string = g_variant_get_string (value, NULL);
+		const char *string;
 
 		switch (spec->str_type) {
 		case 'm': /* MAC address */
+			string = g_variant_get_string (value, NULL);
 			if (!nm_utils_hwaddr_valid (string, -1)) {
 				g_set_error (error,
 				             NM_CONNECTION_ERROR,
