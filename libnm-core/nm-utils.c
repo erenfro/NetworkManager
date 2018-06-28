@@ -2810,14 +2810,8 @@ _nm_sriov_vf_parse_vlans (NMSriovVF *vf, const char *str, GError **error)
 NMSriovVF *
 nm_utils_sriov_vf_from_str (const char *str, GError **error)
 {
-	NMSriovVF *vf;
-	char *space;
-	gs_free char *dup = NULL;
-	guint32 index;
-	gs_unref_hashtable GHashTable *ht = NULL;
-	GHashTableIter iter;
-	char *key;
-	GVariant *variant;
+	gs_free char *index_free = NULL;
+	const char *detail;
 
 	g_return_val_if_fail (str, NULL);
 	g_return_val_if_fail (!error || !*error, NULL);
@@ -2825,12 +2819,27 @@ nm_utils_sriov_vf_from_str (const char *str, GError **error)
 	while (*str == ' ')
 		str++;
 
-	dup = g_strdup (str);
-	space = strchr (dup, ' ');
-	if (space)
-		*space = 0;
+	detail = strchr (str, ' ');
+	if (detail) {
+		index_free = g_strndup (str, detail - str);
+		str = index_free;
+		detail++;
+	}
 
-	index = _nm_utils_ascii_str_to_int64 (dup, 10, 0, G_MAXUINT32, -1);
+	return _nm_utils_sriov_vf_from_strparts (str, detail, error);
+}
+
+NMSriovVF *
+_nm_utils_sriov_vf_from_strparts (const char *index, const char *detail, GError **error)
+{
+	NMSriovVF *vf;
+	guint32 n_index;
+	GHashTableIter iter;
+	char *key;
+	GVariant *variant;
+	gs_unref_hashtable GHashTable *ht = NULL;
+
+	n_index = _nm_utils_ascii_str_to_int64 (index, 10, 0, G_MAXUINT32, -1);
 	if (errno) {
 		g_set_error_literal (error,
 		                     NM_CONNECTION_ERROR,
@@ -2839,9 +2848,9 @@ nm_utils_sriov_vf_from_str (const char *str, GError **error)
 		return NULL;
 	}
 
-	vf = nm_sriov_vf_new (index);
-	if (space) {
-		ht = nm_utils_parse_variant_attributes (space + 1, ' ', '=', TRUE, _nm_sriov_vf_attribute_spec, error);
+	vf = nm_sriov_vf_new (n_index);
+	if (detail) {
+		ht = nm_utils_parse_variant_attributes (detail, ' ', '=', TRUE, _nm_sriov_vf_attribute_spec, error);
 		if (!ht) {
 			nm_sriov_vf_unref (vf);
 			return NULL;
