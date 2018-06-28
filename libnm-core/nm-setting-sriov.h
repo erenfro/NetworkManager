@@ -85,15 +85,15 @@ gboolean nm_sriov_vf_add_vlan (NMSriovVF *vf, guint vlan_id);
 NM_AVAILABLE_IN_1_14
 gboolean nm_sriov_vf_remove_vlan (NMSriovVF *vf, guint vlan_id);
 NM_AVAILABLE_IN_1_14
-const guint *nm_sriov_vf_get_vlan_ids (NMSriovVF *vf, guint *length);
+const guint *nm_sriov_vf_get_vlan_ids (const NMSriovVF *vf, guint *length);
 NM_AVAILABLE_IN_1_14
 void nm_sriov_vf_set_vlan_qos (NMSriovVF *vf, guint vlan_id, guint32 qos);
 NM_AVAILABLE_IN_1_14
 void nm_sriov_vf_set_vlan_protocol (NMSriovVF *vf, guint vlan_id, NMSriovVFVlanProtocol protocol);
 NM_AVAILABLE_IN_1_14
-guint32 nm_sriov_vf_get_vlan_qos (NMSriovVF *vf, guint vlan_id);
+guint32 nm_sriov_vf_get_vlan_qos (const NMSriovVF *vf, guint vlan_id);
 NM_AVAILABLE_IN_1_14
-NMSriovVFVlanProtocol nm_sriov_vf_get_vlan_protocol (NMSriovVF *vf, guint vlan_id);
+NMSriovVFVlanProtocol nm_sriov_vf_get_vlan_protocol (const NMSriovVF *vf, guint vlan_id);
 
 NM_AVAILABLE_IN_1_14
 GType nm_sriov_vf_get_type (void);
@@ -104,17 +104,17 @@ void nm_sriov_vf_ref (NMSriovVF *vf);
 NM_AVAILABLE_IN_1_14
 void nm_sriov_vf_unref (NMSriovVF *vf);
 NM_AVAILABLE_IN_1_14
-gboolean nm_sriov_vf_equal (NMSriovVF *vf, NMSriovVF *other);
+gboolean nm_sriov_vf_equal (const NMSriovVF *vf, const NMSriovVF *other);
 NM_AVAILABLE_IN_1_14
-NMSriovVF *nm_sriov_vf_dup (NMSriovVF *vf);
+NMSriovVF *nm_sriov_vf_dup (const NMSriovVF *vf);
 NM_AVAILABLE_IN_1_14
-guint nm_sriov_vf_get_index (NMSriovVF *vf);
+guint nm_sriov_vf_get_index (const NMSriovVF *vf);
 NM_AVAILABLE_IN_1_14
 void nm_sriov_vf_set_attribute (NMSriovVF *vf, const char *name, GVariant *value);
 NM_AVAILABLE_IN_1_14
-const char **nm_sriov_vf_get_attribute_names (NMSriovVF *vf);
+const char **nm_sriov_vf_get_attribute_names (const NMSriovVF *vf);
 NM_AVAILABLE_IN_1_14
-GVariant *nm_sriov_vf_get_attribute (NMSriovVF *vf, const char *name);
+GVariant *nm_sriov_vf_get_attribute (const NMSriovVF *vf, const char *name);
 NM_AVAILABLE_IN_1_14
 gboolean nm_sriov_vf_attribute_validate  (const char *name, GVariant *value, gboolean *known, GError **error);
 

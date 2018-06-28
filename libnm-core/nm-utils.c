@@ -2663,7 +2663,7 @@ extern const NMVariantAttributeSpec *const _nm_sriov_vf_attribute_spec[];
  * Since: 1.14
  */
 char *
-nm_utils_sriov_vf_to_str (NMSriovVF *vf, gboolean omit_index, GError **error)
+nm_utils_sriov_vf_to_str (const NMSriovVF *vf, gboolean omit_index, GError **error)
 {
 	gs_free NMUtilsNamedValue *values = NULL;
 	gs_free const char **names = NULL;

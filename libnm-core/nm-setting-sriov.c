@@ -158,7 +158,7 @@ nm_sriov_vf_unref (NMSriovVF *vf)
  * Since: 1.14
  **/
 gboolean
-nm_sriov_vf_equal (NMSriovVF *vf, NMSriovVF *other)
+nm_sriov_vf_equal (const NMSriovVF *vf, const NMSriovVF *other)
 {
 	GHashTableIter iter;
 	const char *key;
@@ -230,7 +230,7 @@ vf_add_vlan (NMSriovVF *vf,
  * Since: 1.14
  **/
 NMSriovVF *
-nm_sriov_vf_dup (NMSriovVF *vf)
+nm_sriov_vf_dup (const NMSriovVF *vf)
 {
 	NMSriovVF *copy;
 	GHashTableIter iter;
@@ -265,7 +265,7 @@ nm_sriov_vf_dup (NMSriovVF *vf)
  * Since: 1.14
  **/
 guint
-nm_sriov_vf_get_index (NMSriovVF *vf)
+nm_sriov_vf_get_index (const NMSriovVF *vf)
 {
 	g_return_val_if_fail (vf, 0);
 	g_return_val_if_fail (vf->refcount > 0, 0);
@@ -310,7 +310,7 @@ nm_sriov_vf_set_attribute (NMSriovVF *vf, const char *name, GVariant *value)
  * Since: 1.14
  **/
 const char **
-nm_sriov_vf_get_attribute_names (NMSriovVF *vf)
+nm_sriov_vf_get_attribute_names (const NMSriovVF *vf)
 {
 	g_return_val_if_fail (vf, NULL);
 	g_return_val_if_fail (vf->refcount > 0, NULL);
@@ -331,7 +331,7 @@ nm_sriov_vf_get_attribute_names (NMSriovVF *vf)
  * Since: 1.14
  **/
 GVariant *
-nm_sriov_vf_get_attribute (NMSriovVF *vf, const char *name)
+nm_sriov_vf_get_attribute (const NMSriovVF *vf, const char *name)
 {
 	g_return_val_if_fail (vf, NULL);
 	g_return_val_if_fail (vf->refcount > 0, NULL);
@@ -540,7 +540,7 @@ vlan_id_compare (gconstpointer a, gconstpointer b, gpointer user_data)
  * Since: 1.14
  */
 const guint *
-nm_sriov_vf_get_vlan_ids (NMSriovVF *vf, guint *length)
+nm_sriov_vf_get_vlan_ids (const NMSriovVF *vf, guint *length)
 {
 	GHashTableIter iter;
 	gpointer vlan_id;
@@ -553,19 +553,24 @@ nm_sriov_vf_get_vlan_ids (NMSriovVF *vf, guint *length)
 	NM_SET_OUT (length, num);
 
 	if (vf->vlan_ids)
-		return (const guint *) vf->vlan_ids;
+		return vf->vlan_ids;
 	if (num == 0)
 		return NULL;
 
+	/* vf is const, however, vlan_ids is a mutable field caching the
+	 * result ("mutable" in C++ terminology) */
+	((NMSriovVF *) vf)->vlan_ids = g_new0 (guint, num);
+
 	i = 0;
-	vf->vlan_ids = g_new0 (guint, num);
 	g_hash_table_iter_init (&iter, vf->vlans);
 	while (g_hash_table_iter_next (&iter, (gpointer *) &vlan_id, NULL))
 		vf->vlan_ids[i++] = GPOINTER_TO_UINT (vlan_id);
 
+	nm_assert (num == i);
+
 	g_qsort_with_data (vf->vlan_ids, num, sizeof (guint), vlan_id_compare, NULL);
 
-	return (const guint *) vf->vlan_ids;
+	return vf->vlan_ids;
 }
 
 /**
@@ -630,7 +635,7 @@ nm_sriov_vf_set_vlan_protocol (NMSriovVF *vf, guint vlan_id, NMSriovVFVlanProtoc
  * Since: 1.14
  */
 guint32
-nm_sriov_vf_get_vlan_qos (NMSriovVF *vf, guint vlan_id)
+nm_sriov_vf_get_vlan_qos (const NMSriovVF *vf, guint vlan_id)
 {
 	VFVlan *vlan;
 
@@ -656,7 +661,7 @@ nm_sriov_vf_get_vlan_qos (NMSriovVF *vf, guint vlan_id)
  * Since: 1.14
  */
 NMSriovVFVlanProtocol
-nm_sriov_vf_get_vlan_protocol (NMSriovVF *vf, guint vlan_id)
+nm_sriov_vf_get_vlan_protocol (const NMSriovVF *vf, guint vlan_id)
 {
 	VFVlan *vlan;
 

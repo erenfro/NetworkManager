@@ -252,7 +252,7 @@ char *nm_utils_tc_tfilter_to_str           (NMTCTfilter *tfilter, GError **error
 /*****************************************************************************/
 
 NM_AVAILABLE_IN_1_14
-char *nm_utils_sriov_vf_to_str (NMSriovVF *vf, gboolean omit_index, GError **error);
+char *nm_utils_sriov_vf_to_str (const NMSriovVF *vf, gboolean omit_index, GError **error);
 NM_AVAILABLE_IN_1_14
 NMSriovVF *nm_utils_sriov_vf_from_str (const char *str, GError **error);
 
