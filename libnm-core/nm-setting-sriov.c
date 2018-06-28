@@ -73,6 +73,28 @@ typedef struct {
 	NMSriovVFVlanProtocol protocol;
 } VFVlan;
 
+static guint
+_vf_vlan_hash (gconstpointer ptr)
+{
+	return nm_hash_val (1348254767u, *((guint *) ptr));
+}
+
+static gboolean
+_vf_vlan_equal (gconstpointer a, gconstpointer b)
+{
+	return *((guint *) a) == *((guint *) b);
+}
+
+static GHashTable *
+_vf_vlan_create_hash (void)
+{
+	G_STATIC_ASSERT_EXPR (G_STRUCT_OFFSET (VFVlan, id) == 0);
+	return g_hash_table_new_full (_vf_vlan_hash,
+	                              _vf_vlan_equal,
+	                              NULL,
+	                              nm_g_slice_free_fcn (VFVlan));
+}
+
 /**
  * nm_srio_vf_new:
  * @index: the VF index
@@ -95,11 +117,6 @@ nm_sriov_vf_new (guint index)
 	                                        g_str_equal,
 	                                        g_free,
 	                                        (GDestroyNotify) g_variant_unref);
-	vf->vlans = g_hash_table_new_full (nm_direct_hash,
-	                                   NULL,
-	                                   NULL,
-	                                   nm_g_slice_free_fcn (VFVlan));
-	vf->vlan_ids = NULL;
 	return vf;
 }
 
@@ -138,7 +155,8 @@ nm_sriov_vf_unref (NMSriovVF *vf)
 	vf->refcount--;
 	if (vf->refcount == 0) {
 		g_hash_table_unref (vf->attributes);
-		g_hash_table_unref (vf->vlans);
+		if (vf->vlans)
+			g_hash_table_unref (vf->vlans);
 		g_free (vf->vlan_ids);
 		g_slice_free (NMSriovVF, vf);
 	}
@@ -164,6 +182,7 @@ nm_sriov_vf_equal (const NMSriovVF *vf, const NMSriovVF *other)
 	const char *key;
 	GVariant *value, *value2;
 	VFVlan *vlan, *vlan2;
+	guint n_vlans;
 
 	g_return_val_if_fail (vf, FALSE);
 	g_return_val_if_fail (vf->refcount > 0, FALSE);
@@ -187,16 +206,19 @@ nm_sriov_vf_equal (const NMSriovVF *vf, const NMSriovVF *other)
 			return FALSE;
 	}
 
-	if (g_hash_table_size (vf->vlans) != g_hash_table_size (other->vlans))
+	n_vlans = vf->vlans ? g_hash_table_size (vf->vlans) : 0u;
+	if (n_vlans != (other->vlans ? g_hash_table_size (other->vlans) : 0u))
 		return FALSE;
-	g_hash_table_iter_init (&iter, vf->vlans);
-	while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &vlan)) {
-		vlan2 = g_hash_table_lookup (other->vlans, GUINT_TO_POINTER (vlan->id));
-		if (!vlan2)
-			return FALSE;
-		if (   vlan->qos != vlan2->qos
-		    || vlan->protocol != vlan2->protocol)
-			return FALSE;
+	if (n_vlans > 0) {
+		g_hash_table_iter_init (&iter, vf->vlans);
+		while (g_hash_table_iter_next (&iter, (gpointer *) &vlan, NULL)) {
+			vlan2 = g_hash_table_lookup (other->vlans, vlan);
+			if (!vlan2)
+				return FALSE;
+			if (   vlan->qos != vlan2->qos
+			    || vlan->protocol != vlan2->protocol)
+				return FALSE;
+		}
 	}
 
 	return TRUE;
@@ -215,7 +237,10 @@ vf_add_vlan (NMSriovVF *vf,
 	vlan->qos = qos;
 	vlan->protocol = protocol;
 
-	g_hash_table_insert (vf->vlans, GUINT_TO_POINTER (vlan_id), vlan);
+	if (!vf->vlans)
+		vf->vlans = _vf_vlan_create_hash ();
+
+	g_hash_table_add (vf->vlans, vlan);
 	g_clear_pointer (&vf->vlan_ids, g_free);
 }
 
@@ -247,9 +272,11 @@ nm_sriov_vf_dup (const NMSriovVF *vf)
 	while (g_hash_table_iter_next (&iter, (gpointer *) &name, (gpointer *) &variant))
 		nm_sriov_vf_set_attribute (copy, name, variant);
 
-	g_hash_table_iter_init (&iter, vf->vlans);
-	while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &vlan))
-		vf_add_vlan (copy, vlan->id, vlan->qos, vlan->protocol);
+	if (vf->vlans) {
+		g_hash_table_iter_init (&iter, vf->vlans);
+		while (g_hash_table_iter_next (&iter, (gpointer *) &vlan, NULL))
+			vf_add_vlan (copy, vlan->id, vlan->qos, vlan->protocol);
+	}
 
 	return copy;
 }
@@ -481,7 +508,8 @@ nm_sriov_vf_add_vlan (NMSriovVF *vf, guint vlan_id)
 	g_return_val_if_fail (vf, FALSE);
 	g_return_val_if_fail (vf->refcount > 0, FALSE);
 
-	if (g_hash_table_contains (vf->vlans, GUINT_TO_POINTER (vlan_id)))
+	if (   vf->vlans
+	    && g_hash_table_contains (vf->vlans, &vlan_id))
 		return FALSE;
 
 	vf_add_vlan (vf, vlan_id, 0, NM_SRIOV_VF_VLAN_PROTOCOL_802_1Q);
@@ -507,11 +535,11 @@ nm_sriov_vf_remove_vlan (NMSriovVF *vf, guint vlan_id)
 	g_return_val_if_fail (vf, FALSE);
 	g_return_val_if_fail (vf->refcount > 0, FALSE);
 
-	if (!g_hash_table_remove (vf->vlans, GUINT_TO_POINTER (vlan_id)))
+	if (   !vf->vlans
+	    || !g_hash_table_remove (vf->vlans, &vlan_id))
 		return FALSE;
 
 	g_clear_pointer (&vf->vlan_ids, g_free);
-
 	return TRUE;
 }
 
@@ -543,13 +571,13 @@ const guint *
 nm_sriov_vf_get_vlan_ids (const NMSriovVF *vf, guint *length)
 {
 	GHashTableIter iter;
-	gpointer vlan_id;
+	VFVlan *vlan;
 	guint num, i;
 
 	g_return_val_if_fail (vf, NULL);
 	g_return_val_if_fail (vf->refcount > 0, NULL);
 
-	num = g_hash_table_size (vf->vlans);
+	num = vf->vlans ? g_hash_table_size (vf->vlans) : 0u;
 	NM_SET_OUT (length, num);
 
 	if (vf->vlan_ids)
@@ -563,8 +591,8 @@ nm_sriov_vf_get_vlan_ids (const NMSriovVF *vf, guint *length)
 
 	i = 0;
 	g_hash_table_iter_init (&iter, vf->vlans);
-	while (g_hash_table_iter_next (&iter, (gpointer *) &vlan_id, NULL))
-		vf->vlan_ids[i++] = GPOINTER_TO_UINT (vlan_id);
+	while (g_hash_table_iter_next (&iter, (gpointer *) &vlan, NULL))
+		vf->vlan_ids[i++] = vlan->id;
 
 	nm_assert (num == i);
 
@@ -591,8 +619,8 @@ nm_sriov_vf_set_vlan_qos (NMSriovVF *vf, guint vlan_id, guint32 qos)
 	g_return_if_fail (vf);
 	g_return_if_fail (vf->refcount > 0);
 
-	vlan = g_hash_table_lookup (vf->vlans, GUINT_TO_POINTER (vlan_id));
-	if (!vlan)
+	if (   !vf->vlans
+	    || !(vlan = g_hash_table_lookup (vf->vlans, &vlan_id)))
 		g_return_if_reached ();
 
 	vlan->qos = qos;
@@ -616,8 +644,8 @@ nm_sriov_vf_set_vlan_protocol (NMSriovVF *vf, guint vlan_id, NMSriovVFVlanProtoc
 	g_return_if_fail (vf);
 	g_return_if_fail (vf->refcount > 0);
 
-	vlan = g_hash_table_lookup (vf->vlans, GUINT_TO_POINTER (vlan_id));
-	if (!vlan)
+	if (   !vf->vlans
+	    || !(vlan = g_hash_table_lookup (vf->vlans, &vlan_id)))
 		g_return_if_reached ();
 
 	vlan->protocol = protocol;
@@ -642,8 +670,8 @@ nm_sriov_vf_get_vlan_qos (const NMSriovVF *vf, guint vlan_id)
 	g_return_val_if_fail (vf, 0);
 	g_return_val_if_fail (vf->refcount > 0, 0);
 
-	vlan = g_hash_table_lookup (vf->vlans, GUINT_TO_POINTER (vlan_id));
-	if (!vlan)
+	if (   !vf->vlans
+	    || !(vlan = g_hash_table_lookup (vf->vlans, &vlan_id)))
 		g_return_val_if_reached (0);
 
 	return vlan->qos;
@@ -668,8 +696,8 @@ nm_sriov_vf_get_vlan_protocol (const NMSriovVF *vf, guint vlan_id)
 	g_return_val_if_fail (vf, NM_SRIOV_VF_VLAN_PROTOCOL_802_1Q);
 	g_return_val_if_fail (vf->refcount > 0, NM_SRIOV_VF_VLAN_PROTOCOL_802_1Q);
 
-	vlan = g_hash_table_lookup (vf->vlans, GUINT_TO_POINTER (vlan_id));
-	if (!vlan)
+	if (   !vf->vlans
+	    || !(vlan = g_hash_table_lookup (vf->vlans, &vlan_id)))
 		g_return_val_if_reached (NM_SRIOV_VF_VLAN_PROTOCOL_802_1Q);
 
 	return vlan->protocol;
