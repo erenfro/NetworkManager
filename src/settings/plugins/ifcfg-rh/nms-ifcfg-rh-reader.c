@@ -2007,22 +2007,21 @@ make_sriov_setting (shvarFile *ifcfg)
 		while (g_hash_table_iter_next (&iter, (gpointer *) &key, NULL)) {
 			gs_free_error GError *error = NULL;
 			gs_free char *value_to_free = NULL;
-			gs_free char *vf_str = NULL;
 			const char *value;
 			NMSriovVF *vf;
 
-			value = svGetValue (ifcfg, key, &value_to_free);
+			nm_assert (g_str_has_prefix (key, "SRIOV_VF"));
 
+			value = svGetValue (ifcfg, key, &value_to_free);
 			if (!value)
 				continue;
 
-			vf_str = g_strdup_printf ("%s %s",
-			                          key + NM_STRLEN ("SRIOV_VF"),
-			                          value);
-			vf = nm_utils_sriov_vf_from_str (vf_str, &error);
+			key += NM_STRLEN ("SRIOV_VF");
+
+			vf = _nm_utils_sriov_vf_from_strparts (key, value, &error);
 			if (!vf) {
-				PARSE_WARNING ("ignoring invalid SR-IOV VF '%s': %s",
-				               vf_str, error->message);
+				PARSE_WARNING ("ignoring invalid SR-IOV VF '%s %s': %s",
+				               key, value, error->message);
 				continue;
 			}
 			if (!vfs)
