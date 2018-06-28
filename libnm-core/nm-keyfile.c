@@ -134,9 +134,9 @@ sriov_vfs_parser (KeyfileReaderInfo *info, NMSetting *setting, const char *key)
 	vfs = g_ptr_array_new_with_free_func ((GDestroyNotify) nm_sriov_vf_unref);
 
 	for (i = 0; i < n_keys; i++) {
-		gs_free char *value = NULL, *vf_string = NULL;
+		gs_free char *value = NULL;
 		NMSriovVF *vf;
-		char *rest;
+		const char *rest;
 
 		if (!g_str_has_prefix (keys[i], "vf."))
 			continue;
@@ -151,8 +151,7 @@ sriov_vfs_parser (KeyfileReaderInfo *info, NMSetting *setting, const char *key)
 		                                         keys[i],
 		                                         NULL);
 
-		vf_string = g_strdup_printf ("%s %s", rest, value);
-		vf = nm_utils_sriov_vf_from_str (vf_string, NULL);
+		vf = _nm_utils_sriov_vf_from_strparts (rest, value, NULL);
 		if (vf)
 			g_ptr_array_add (vfs, vf);
 	}
@@ -1567,7 +1566,7 @@ sriov_vfs_writer (KeyfileWriterInfo *info,
 		return;
 
 	for (i = 0; i < vfs->len; i++) {
-		NMSriovVF *vf = vfs->pdata[i];
+		const NMSriovVF *vf = vfs->pdata[i];
 		gs_free char *kf_value = NULL;
 		char kf_key[32];
 
